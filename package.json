@@ -1,0 +1,10 @@
+{
+    "name": "creative-exam",
+    "scripts": {
+        "start-dev": "nodemon app.js"
+    },
+    "dependencies": {
+        "express": "^4.17.1",
+        "matter-js": "^0.17.1"
+    }
+}
