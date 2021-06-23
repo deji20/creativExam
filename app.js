@@ -11,7 +11,6 @@ app.get("/", (req, res) => {
 })
 
 app.use("/", express.static(path.join(__dirname, "public")));
-app.use("/matter.js", express.static("node_modules/matter-js/build/matter.min.js"));
 
 server.listen(port, (err) => {
     if(err){
