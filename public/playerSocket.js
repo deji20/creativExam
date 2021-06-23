@@ -17,6 +17,8 @@ class PlayerSocket{
                 for(let key in opponents){
                     Composite.add(arena.currentMap, opponents[key].body);
                 }
+                !player.alive && toggleModal();
+                player.alive = true;
                 Composite.add(arena.currentMap, player.body);
                 Composite.add(arena.board, arena.currentMap);
             })
@@ -36,10 +38,18 @@ class PlayerSocket{
                 }
             })
     
-            this.socket.on("kill", (name) => {
-                let dead = opponents[name];
-                Composite.remove(arena.currentMap, dead.body);
-                opponents[name].kill();
+            this.socket.on("dead", (name) => {
+                if(player.name === name){
+                    Composite.remove(arena.currentMap, player.body);
+                    toggleModal($("<p>", {
+                        class:"p-10 text-6xl bg-black rounded-xl text-white bg-opacity-20",
+                        text:"Oops You Died!"
+                    }))
+                    player.alive = false;
+                }else{
+                    let dead = opponents[name];
+                    Composite.remove(arena.currentMap, dead.body);
+                }
             })
         })
     }

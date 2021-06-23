@@ -53,11 +53,12 @@ module.exports = (server) => {
 
             let remaining = room.livingPlayers;
             if(remaining.length === 1){
-                remaining[0].score++;
-                
-                socket.emit("scores", room.scores);
-                io.to(room.name).emit("newBoard", room.board.generateMap(Math.floor(Math.random() * 12 + 1)));
-                room.players.forEach(p => room.revivePlayer(p.name));
+                setTimeout(() => {
+                    remaining[0].score++;
+                    socket.emit("scores", room.scores);
+                    io.to(room.name).emit("newBoard", room.board.generateMap(Math.floor(Math.random() * 12 + 1)));
+                    room.players.forEach(p => room.revivePlayer(p.name));
+                }, 3000);
             }
         })
     })

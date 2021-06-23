@@ -1,8 +1,9 @@
 class Player{
     constructor(name, x, y){
         this.name = name;
+        this.alive = true;
         this.size = 50;
-        const mainBody = Bodies.polygon(x, y, 8, this.size, {
+        const mainBody = Bodies.polygon(x, y, 3, this.size, {
             label:"player",
             angle:Math.PI,
         });
@@ -17,9 +18,9 @@ class Player{
             label:name,
             parts:[mainBody, gun, barrel],
             mass:100,
-            friction:0.01,
+            friction:1.0,
             frictionStatic:0.01,
-            frictionAir:0.05
+            frictionAir:0.04
         });
 
         this.speed = 0.2;

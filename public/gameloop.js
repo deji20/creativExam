@@ -66,7 +66,7 @@ function gameloop(){
         Engine.update(engine);
         if(player){
             Render.lookAt(render, player.body, {x:1000, y:1000})
-            checkKeys();
+            player.alive && checkKeys();
             playerSocket.update(player.body.position.x, player.body.position.y, player.body.angle);
         }
         requestAnimationFrame(update);
@@ -77,7 +77,7 @@ function gameloop(){
 let keys=[];
 function setControls(){
     $(document).on("keydown", (event) => {
-        if(event.key === "e"){
+        if(event.key === "e" && player.alive){
             Composite.add(arena.board, player.shoot(10));
             playerSocket.shoot();
         }
@@ -91,7 +91,7 @@ function setControls(){
 function setEvents(){
     Events.on(arena.board, "afterAdd", (e) => {
         if(e.object.label === "bullet"){
-            setTimeout(() => Composite.remove(e.source, e.object), 10000);
+            setTimeout(() => Composite.remove(e.source, e.object), 7000);
         }
     });
 
@@ -101,10 +101,12 @@ function setEvents(){
         if(labelPair.includes("player") && labelPair.includes("bullet")){
             if(pair.bodyA.label === "player"){
                 playerSocket.hit(pair.bodyA.parent.label);
-                Composite.remove(arena.board, pair.bodyA.parent)
+                Composite.remove(arena.board, pair.bodyA.parent);
+                Composite.remove(arena.board, pair.bodyB);
             }else{
                 playerSocket.hit(pair.bodyB.parent.label);
-                Composite.remove(arena.board, pair.bodyB.parent)
+                Composite.remove(arena.board, pair.bodyB.parent);
+                Composite.remove(arena.board, pair.bodyA);
             }
         }
     })
