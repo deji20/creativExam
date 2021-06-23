@@ -1,5 +1,5 @@
 class Scoreboard{
-    constructor(players){
+    constructor(){
         this.board = $("#scoreboard");
     }
     

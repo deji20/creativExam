@@ -26,7 +26,7 @@ module.exports = (server) => {
             }
             socket.join(room.name);
             room.addPlayer(player);
-            console.log(gamerooms.map((game) => game.players.map((p) => p)));
+            socket.emit("newBoard", room.board.map);
         })
 
         socket.on("listPlayers", () => {
