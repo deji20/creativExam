@@ -26,7 +26,6 @@ module.exports = (server) => {
             }
             socket.join(room.name);
             room.addPlayer(player);
-            socket.emit("newBoard", room.board.map);
         })
 
         socket.on("listPlayers", () => {
