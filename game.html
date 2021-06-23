@@ -1,4 +1,20 @@
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 
+<body style="padding:0; margin:0;" class="bg-gray-600">
+    <div id="scoreboard" class="fixed z-10 w-screen h-10 bg-blue-900 text-white  text-sm flex flex-row justify-evenly align-center"></div>
+    <div id="modalScreen" class="z-50 fixed hidden h-screen w-screen bg-blue-900 bg-opacity-25">
+        <div id="modalContent" class="flex h-full justify-center items-center"></div>
+    </div>
+    <div id="game"></div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="matter.js"></script>
-<script src="area.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="player.js"></script>
+<script src="playerSocket.js"></script>
+<script src="modal.js"></script>
+<script src="arena.js"></script>
+<script src="scoreboard.js"></script>
+<script src="gameloop.js"></script>
+<script src="start.js"></script>
