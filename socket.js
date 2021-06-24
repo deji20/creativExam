@@ -51,9 +51,9 @@ module.exports = (server) => {
             player.socket.emit("dead", name);
 
             let remaining = room.livingPlayers;
-            if(remaining.length === 1){
+            if(remaining.length <= 1){
                 setTimeout(() => {
-                    remaining[0].score++;
+                    remaining[0] && remaining[0].score++;
                     socket.emit("scores", room.scores);
                     io.to(room.name).emit("newBoard", room.board.generateMap(Math.floor(Math.random() * 12 + 1)));
                     room.players.forEach(p => room.revivePlayer(p.name));

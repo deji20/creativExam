@@ -3,7 +3,7 @@ class Player{
         this.name = name;
         this.alive = true;
         this.size = 50;
-        const mainBody = Bodies.polygon(x, y, 3, this.size, {
+        const mainBody = Bodies.polygon(x, y, 8, this.size, {
             label:"player",
             angle:Math.PI,
         });
@@ -17,7 +17,7 @@ class Player{
         this.body = Body.create({
             label:name,
             parts:[mainBody, gun, barrel],
-            mass:100,
+            mass:75,
             friction:1.0,
             frictionStatic:0.01,
             frictionAir:0.04
@@ -38,13 +38,15 @@ class Player{
     }
 
     shoot(speed){
-        let vectorHeading = {x:Math.cos(this.body.angle) * speed, y:Math.sin(this.body.angle) * speed};
-        let bullet = Bodies.circle(this.body.position.x + vectorHeading.x*10, this.body.position.y + vectorHeading.y*10, 25, {
+        const vectorHeading = {x:Math.cos(this.body.angle) * speed, y:Math.sin(this.body.angle) * speed};
+        const startDistance = 120/speed
+        const bullet = Bodies.circle(this.body.position.x + vectorHeading.x*startDistance, this.body.position.y + vectorHeading.y*startDistance, 25, {
             restitution:1,
-            frictionStatic:1,
-            friction:1,
+            inertia:Infinity,
+            frictionStatic:0,
+            friction:0,
             frictionAir:0,
-            mass:100,
+            mass:75,
             render:{
                 fillStyle:"blue",
             },

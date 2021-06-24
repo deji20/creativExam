@@ -78,7 +78,7 @@ let keys=[];
 function setControls(){
     $(document).on("keydown", (event) => {
         if(event.key === "e" && player.alive){
-            Composite.add(arena.board, player.shoot(10));
+            Composite.add(arena.board, player.shoot(3));
             playerSocket.shoot();
         }
         keys[event.key]=true;
