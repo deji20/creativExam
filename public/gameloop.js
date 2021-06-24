@@ -91,7 +91,13 @@ function setControls(){
 function setEvents(){
     Events.on(arena.board, "afterAdd", (e) => {
         if(e.object.label === "bullet"){
-            setTimeout(() => Composite.remove(e.source, e.object), 7000);
+            setTimeout(() => {
+                Composite.remove(e.source, e.object)
+                let bulletIndex = player.bullets.indexOf(e.object);
+                bulletIndex > -1 && player.bullets.splice(bulletIndex, 1);
+                  
+            }
+            , 7000);
         }
     });
 

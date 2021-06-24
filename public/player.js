@@ -13,15 +13,18 @@ class Player{
         let barrel = Bodies.polygon(x, y, 6, this.size/2, {
             label:"player",
         });
-
+        
         this.body = Body.create({
             label:name,
             parts:[mainBody, gun, barrel],
             mass:75,
             friction:1.0,
-            frictionStatic:0.01,
+            frictionStatic:2,
             frictionAir:0.04
         });
+        
+        this.bulletLimit = 5;
+        this.bullets = [];
 
         this.speed = 0.2;
         this.rotationSpeed = 0.06;
@@ -38,21 +41,24 @@ class Player{
     }
 
     shoot(speed){
-        const vectorHeading = {x:Math.cos(this.body.angle) * speed, y:Math.sin(this.body.angle) * speed};
-        const startDistance = 120/speed
-        const bullet = Bodies.circle(this.body.position.x + vectorHeading.x*startDistance, this.body.position.y + vectorHeading.y*startDistance, 25, {
-            restitution:1,
-            inertia:Infinity,
-            frictionStatic:0,
-            friction:0,
-            frictionAir:0,
-            mass:75,
-            render:{
-                fillStyle:"blue",
-            },
-            label: "bullet",
-        });
-        Body.applyForce(bullet, bullet.position, vectorHeading);
-        return bullet;
+        if(this.bullets.length < this.bulletLimit){
+            const vectorHeading = {x:Math.cos(this.body.angle) * speed, y:Math.sin(this.body.angle) * speed};
+            const startDistance = 120/speed
+            const bullet = Bodies.circle(this.body.position.x + vectorHeading.x*startDistance, this.body.position.y + vectorHeading.y*startDistance, 25, {
+                restitution:1,
+                inertia:Infinity,
+                frictionStatic:0,
+                friction:0,
+                frictionAir:0,
+                mass:75,
+                render:{
+                    fillStyle:"blue",
+                },
+                label: "bullet",
+            });
+            Body.applyForce(bullet, bullet.position, vectorHeading);
+            this.bullets.push(bullet);
+            return bullet;
+        }
     }
 }
